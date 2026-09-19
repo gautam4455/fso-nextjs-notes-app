@@ -15,8 +15,8 @@ const NewNote = () => {
 
         <div>
           <label>
-            Required
             <input type="checkbox" name="important" />
+            Important
           </label>
         </div>
 
