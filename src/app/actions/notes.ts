@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-import { addNote } from "../services/notes";
+import { addNote, toggleImportance } from "../services/notes";
 
 export const createNote = async (formData: FormData) => {
   const content = formData.get("content") as string;
@@ -11,6 +11,14 @@ export const createNote = async (formData: FormData) => {
 
   addNote(content, important);
 
-  revalidatePath("/notes"); // Always gets new data on this route whenever there is change in this route
+  revalidatePath("/notes"); // Get new data in production instead of stale after npm run build
   redirect("/notes");
+};
+
+export const toggleNoteImportance = async (formData: FormData) => {
+  const id = Number(formData.get("id"));
+  toggleImportance(id);
+
+  revalidatePath(`/notes/${id}`); // Get new data in production instead of stale after npm run build
+  revalidatePath("/notes"); // Get new data in production instead of stale after npm run build
 };
