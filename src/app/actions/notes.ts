@@ -9,7 +9,7 @@ export const createNote = async (formData: FormData) => {
   const content = formData.get("content") as string;
   const important = formData.get("important") === "on";
 
-  addNote(content, important);
+  await addNote(content, important);
 
   revalidatePath("/notes"); // Get new data in production instead of stale after npm run build
   redirect("/notes");
@@ -17,7 +17,7 @@ export const createNote = async (formData: FormData) => {
 
 export const toggleNoteImportance = async (formData: FormData) => {
   const id = Number(formData.get("id"));
-  toggleImportance(id);
+  await toggleImportance(id);
 
   revalidatePath(`/notes/${id}`); // Get new data in production instead of stale after npm run build
   revalidatePath("/notes"); // Get new data in production instead of stale after npm run build
