@@ -8,6 +8,20 @@
       "when": 1789820879168,
       "tag": "0000_secret_newton_destine",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789825226946,
+      "tag": "0001_lowly_power_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789826105777,
+      "tag": "0002_parched_jack_murdock",
+      "breakpoints": true
     }
   ]
 }
