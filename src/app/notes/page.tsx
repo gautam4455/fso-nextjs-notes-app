@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-// import { NoteList } from "@/app/notes/NoteList";
+import { NoteList } from "@/app/notes/NoteList";
 import { getNotes } from "../services/notes";
+import { Suspense } from "react";
 
 const Notes = async ({
   searchParams,
@@ -21,7 +22,9 @@ const Notes = async ({
       <h2 className="text-2xl font-bold mb-4">Notes</h2>
 
       {/* Client Component Solution */}
-      {/* <NoteList notes={allNotes} /> */}
+      {/* <Suspense fallback={<p>Loading notes...</p>}>
+        <NoteList notes={allNotes} />
+      </Suspense> */}
 
       {/* Server Somponent Solution */}
       <div className="mb-4">

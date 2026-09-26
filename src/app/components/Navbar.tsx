@@ -3,6 +3,7 @@
 import { signOut, useSession } from "next-auth/react";
 
 import NavLink from "./NavLink";
+import Profile from "./Profile";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -26,6 +27,7 @@ const Navbar = () => {
             >
               logout
             </button>
+            <Profile />
           </>
         ) : (
           <>
