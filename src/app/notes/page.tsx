@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-// import { NoteList } from "@/app/notes/NoteList";
+import { NoteList } from "@/app/notes/NoteList";
 import { getNotes } from "../services/notes";
+import { Suspense } from "react";
 
 const Notes = async ({
   searchParams,
@@ -21,34 +22,42 @@ const Notes = async ({
       <h2 className="text-2xl font-bold mb-4">Notes</h2>
 
       {/* Client Component Solution */}
-      {/* <NoteList notes={allNotes} /> */}
+      {/* <Suspense fallback={<p>Loading notes...</p>}>
+        <NoteList notes={allNotes} />
+      </Suspense> */}
 
-      {/* Server Somponent Solution */}
-      <div className="mb-4">
-        <Link
-          href={showImportant ? "/notes" : "/notes?important=true"}
-          className="text-blue-600 hover:underline"
-        >
-          {showImportant ? "show all" : "show important only"}
-        </Link>
-      </div>
-
-      <ul className="space-y-2">
-        {notes.map((note) => (
-          <li key={note.id} className="border round p-3 hover:bg-gray-50">
+      {/* Server Component Solution */}
+      {!notes.length ? (
+        <h3>No notes to show</h3>
+      ) : (
+        <>
+          <div className="mb-4">
             <Link
-              href={`/notes/${note.id}`}
+              href={showImportant ? "/notes" : "/notes?important=true"}
               className="text-blue-600 hover:underline"
             >
-              {note.content}
+              {showImportant ? "show all" : "show important only"}
             </Link>
+          </div>
 
-            {note.important && (
-              <strong className="ml-2 text-amber-600">(important)</strong>
-            )}
-          </li>
-        ))}
-      </ul>
+          <ul className="space-y-2">
+            {notes.map((note) => (
+              <li key={note.id} className="border round p-3 hover:bg-gray-50">
+                <Link
+                  href={`/notes/${note.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {note.content}
+                </Link>
+
+                {note.important && (
+                  <strong className="ml-2 text-amber-600">(important)</strong>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { createNote } from "@/app/actions/notes";
 import { useNotification } from "@/app/components/NotificationContext";
@@ -11,6 +12,12 @@ const NewNote = () => {
     error: "",
     success: false,
   });
+
+  const { data: session } = useSession();
+
+  if (!session) {
+    redirect("/");
+  }
 
   const { showNotification } = useNotification();
 
@@ -24,26 +31,41 @@ const NewNote = () => {
   }, [state, showNotification, router]);
 
   return (
-    <div>
-      <h2>Create a new note</h2>
+    <div className="max-w-2xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Create a new note</h2>
 
       <form action={formAction}>
-        <div>
-          <label>
-            Content
-            <input type="text" name="content" required minLength={10} />
-          </label>
-        </div>
+        <div className="grid grid-container gap-2">
+          <div className="grid-item">
+            <label className="font-bold">Content:</label>
 
-        <div>
-          <label>
-            <input type="checkbox" name="important" />
-            Important
-          </label>
-        </div>
+            <input
+              type="text"
+              name="content"
+              placeholder="Enter your note content"
+              required
+              className="ml-1 p-1 border rounded"
+            />
+          </div>
 
-        <button type="submit">Create</button>
-        {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+          <div className="grid-item">
+            <input type="checkbox" name="important" id="important" />
+            <label htmlFor="important" className="ml-1">
+              Important
+            </label>
+          </div>
+
+          <div className="grid-item mt-2">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded cursor-pointer"
+            >
+              Create
+            </button>
+
+            {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+          </div>
+        </div>
       </form>
     </div>
   );
