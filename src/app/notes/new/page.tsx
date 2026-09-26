@@ -1,11 +1,28 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { createNote } from "@/app/actions/notes";
+import { useNotification } from "@/app/components/NotificationContext";
 
 const NewNote = () => {
-  const [state, formAction] = useActionState(createNote, { error: "" });
+  const [state, formAction] = useActionState(createNote, {
+    error: "",
+    success: false,
+  });
+
+  const { showNotification } = useNotification();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.success) {
+      showNotification("Note created successfully");
+      router.push("/notes");
+    }
+  }, [state, showNotification, router]);
+
   return (
     <div>
       <h2>Create a new note</h2>
