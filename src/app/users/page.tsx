@@ -6,13 +6,18 @@ const Users = async () => {
   const users = await getUsers();
 
   return (
-    <div>
-      <h2>Users</h2>
+    <div className="max-w-2xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Users</h2>
 
-      <ul>
+      <ul className="space-y-2">
         {users.map((user) => (
-          <li key={user.id}>
-            <Link href={`users/${user.id}`}>{user.name}</Link>
+          <li key={user.id} className="border round p-3 hover:bg-gray-50">
+            <Link
+              href={`users/${user.id}`}
+              className="text-blue-600 hover:underline"
+            >
+              {user.name}
+            </Link>
           </li>
         ))}
       </ul>

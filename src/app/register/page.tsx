@@ -2,29 +2,59 @@ import { registerUser } from "../actions/users";
 
 const Register = () => {
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="max-w-2xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Register</h2>
 
       <form action={registerUser}>
-        <div>
-          <label>Username</label>
+        <div className="grid grid-container gap-3">
+          <div className="grid-item">
+            <label className="font-bold">Username:</label>
 
-          <input type="text" name="username" id="username" required />
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Enter your email/username"
+              required
+              className="ml-1 p-1 border rounded"
+            />
+          </div>
+
+          <div className="grid-item">
+            <label className="font-bold">Name:</label>
+
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              required
+              className="ml-1 p-1 border rounded"
+            />
+          </div>
+
+          <div className="grid-item">
+            <label className="font-bold">Password:</label>
+
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+              className="ml-1 p-1 border rounded"
+            />
+          </div>
+
+          <div className="grid-item">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded cursor-pointer"
+            >
+              Register
+            </button>
+          </div>
         </div>
-
-        <div>
-          <label>Name</label>
-
-          <input type="text" name="name" id="name" required />
-        </div>
-
-        <div>
-          <label>Password</label>
-
-          <input type="password" name="password" id="password" required />
-        </div>
-
-        <button type="submit">Register</button>
       </form>
     </div>
   );

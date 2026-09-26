@@ -26,32 +26,38 @@ const Notes = async ({
         <NoteList notes={allNotes} />
       </Suspense> */}
 
-      {/* Server Somponent Solution */}
-      <div className="mb-4">
-        <Link
-          href={showImportant ? "/notes" : "/notes?important=true"}
-          className="text-blue-600 hover:underline"
-        >
-          {showImportant ? "show all" : "show important only"}
-        </Link>
-      </div>
-
-      <ul className="space-y-2">
-        {notes.map((note) => (
-          <li key={note.id} className="border round p-3 hover:bg-gray-50">
+      {/* Server Component Solution */}
+      {!notes.length ? (
+        <h3>No notes to show</h3>
+      ) : (
+        <>
+          <div className="mb-4">
             <Link
-              href={`/notes/${note.id}`}
+              href={showImportant ? "/notes" : "/notes?important=true"}
               className="text-blue-600 hover:underline"
             >
-              {note.content}
+              {showImportant ? "show all" : "show important only"}
             </Link>
+          </div>
 
-            {note.important && (
-              <strong className="ml-2 text-amber-600">(important)</strong>
-            )}
-          </li>
-        ))}
-      </ul>
+          <ul className="space-y-2">
+            {notes.map((note) => (
+              <li key={note.id} className="border round p-3 hover:bg-gray-50">
+                <Link
+                  href={`/notes/${note.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {note.content}
+                </Link>
+
+                {note.important && (
+                  <strong className="ml-2 text-amber-600">(important)</strong>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
